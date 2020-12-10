@@ -85,6 +85,7 @@
                 </div>
 
                 <div class="links">
+                    <a href="{{env('app_url')}}/api/todos" target="_blank">Todos</a>
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>

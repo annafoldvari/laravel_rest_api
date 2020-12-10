@@ -1,0 +1,64 @@
+### ALL TODOS
+
+GET http://localhost:8000/api/todos/
+
+### SINGLE TODO
+
+GET http://localhost:8000/api/todos/3
+
+
+
+### First POST request
+
+POST http://localhost:8000/api/todos/
+Content-Type: application/json
+
+{
+  "name": "Build project",
+  "status": "todo"
+}
+
+
+### Second POST request
+
+POST http://localhost:8000/api/todos/
+Content-Type: application/json
+
+{
+  "name": "Walk the dog",
+  "status": "in progress"
+}
+
+### Third POST request
+
+POST http://localhost:8000/api/todos/
+Content-Type: application/json
+
+{
+  "name": "Cook dinner",
+  "status": "done"
+}
+
+### Fourth POST request
+
+POST http://localhost:8000/api/todos/
+Content-Type: application/json
+
+{
+  "name": "Take out the rubbish",
+  "status": "todo"
+}
+
+### First PUT request
+
+POST http://localhost:8000/api/todos/3?_method=PUT
+Content-Type: application/json
+
+{
+  "name": "Cook dinner",
+  "status": "todo"
+}
+
+### First DELETE request
+
+DELETE http://localhost:8000/api/todos/5

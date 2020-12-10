@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Todo;
+use App\Http\Resources\TodoResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TodoController extends Controller
 {
@@ -13,7 +16,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        //
+        return response(TodoResource::collection(Todo::all()), 200);
     }
 
     /**
@@ -24,7 +27,16 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = Validator::make($request->toArray(), [
+          'name' => 'required',
+          'status' => 'required'
+        ]);
+
+        if ($validate->fails()) {
+          return response($validate->errors(), 400);
+        }
+
+        return response(new TodoResource(Todo::create($validate->validate())), 201);
     }
 
     /**
@@ -33,9 +45,9 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Todo $todo)
     {
-        //
+      return response(new TodoResource($todo), 200);
     }
 
     /**
@@ -45,9 +57,19 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Todo $todo)
     {
-        //
+      $validate = Validator::make($request->toArray(), [
+        'name' => 'required',
+        'status' => 'required'
+      ]);
+
+      if ($validate->fails()) {
+        return response($validate->errors(), 400);
+      }
+
+      $todo->update($validate->validate());
+      return response(new TodoResource($todo), 201);     
     }
 
     /**
@@ -56,8 +78,9 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Todo $todo)
     {
-        //
+      $todo->delete();
+      return response(null, 204);
     }
 }
